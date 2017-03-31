@@ -13,10 +13,21 @@ var coins = {
 var coinsByAmount = ['q', 'd', 'n', 'p'];
 
 module.exports = {
-  getAmount: function(coinType) {
-  	if(!coins.hasOwnProperty(coinType)){
-  		throw new Error('Unrecognized coin ' + coinType);
-  	}
-  	return coins[coinType];
-  },
-};
+	convertToChange : function(coinValue) {
+		var changes = [];
+		var initValue = coinValue;
+		if(coinValue > 0)
+			coinsByAmount.forEach(coin => {
+				while(initValue - coins[coin] >= 0)
+					{
+						changes.push(coin);
+						initValue = initValue - coins[coin];
+					}
+			})
+
+	    return changes;
+	},
+}
+
+
+
